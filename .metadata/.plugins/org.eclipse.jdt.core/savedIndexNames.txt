@@ -1,0 +1,4 @@
+INDEX VERSION 1.131+/Users/user/eclipse-workspaceStanford/ProjectStanford/.metadata/.plugins/org.eclipse.jdt.core
+2585418274.index
+822514700.index
+1412680892.index

@@ -1,0 +1,174 @@
+
+
+/*
+ * File: DefendsDemocracyKarel.java
+ * ----------------------------
+ * When you finish writing it, the CheckerboardKarel class should draw
+ * a checkerboard using beepers, as described in Assignment 1.  You
+ * should make sure that your program works for all of the sample
+ * worlds supplied in the starter folder.
+ */
+
+import stanford.karel.*;
+
+public class DefendsDemocracyKarel extends SuperKarel {
+	
+	public void run() {
+		for (int i=0;i<5;i++) {
+			checkBeepers();
+		}		
+	}	
+	
+	private void checkBeepers() {
+		startNewBase();
+		if (noBeepersPresent()) {
+			northSideKarel();			
+			southSideKarel();
+		} else {
+		    checkCenterBallout();
+			checkFillMissingBeepers();
+		    startNewBase();  
+		}
+	}
+	
+	private void checkCenterBallout() {
+		int countBeeper=0;
+		
+		while (beepersPresent()) {
+				
+			countBeeper++;
+			pickBeeper();
+		}
+		if (countBeeper!=1) {
+			for (int i=0;i<(countBeeper-1);i++) {
+				putBeeper();
+			}
+		} else {
+			putBeeper();
+		}
+		karelGotBlocked();
+	}	
+	
+	private void checkFillMissingBeepers() {
+		checkNorthSide();
+		checkSouthSide(); 		
+	}
+	
+	private void checkNorthSide() {
+		int countBeeper=0;
+		
+		turnLeft();
+		move();
+		while (beepersPresent() ) {			
+			countBeeper++;
+			pickBeeper();
+		}
+		if (countBeeper!=1) {
+			for (int i=0;i<countBeeper;i++) {
+				
+			}
+		} else {
+			putBeeper();
+			karelGotBlocked();
+		}
+		
+		if (noBeepersPresent()) {
+			fillMissingBeeperNorth();
+		}
+	}
+	
+	private void checkSouthSide() {
+		int countBeeper=0;
+		
+		if (frontIsBlocked()) {
+			turnAround();
+		}		
+		while (beepersPresent() ) {			
+			countBeeper++;
+			pickBeeper();
+		}		
+		 if (countBeeper >1) {
+			for (int i=0;i<(countBeeper-1);i++) {
+				putBeeper();
+				move();
+				if (rightIsClear()) {
+					turnRight();
+				}	
+			}
+		} else {
+			if (noBeepersPresent()) {
+				fillMissingBeeperSouth();
+			} else {
+				move();
+				turnRight();
+				while (notFacingEast()) {
+					turnRight();
+				}
+				if (rightIsClear()) {
+					startNewBase(); 
+				}			
+			}  
+		}		
+	}
+	
+	private void fillMissingBeeperNorth() {
+		putBeeper();
+		karelGotBlocked();
+	}	
+	private void fillMissingBeeperSouth(){
+		putBeeper();
+		move();
+		while (notFacingEast()) {
+			turnRight();
+		}		
+	}
+	
+	private void northSideKarel() {
+		turnLeft();
+		cleanBallout();
+
+		if (frontIsBlocked()) {
+			cleanBallout();
+			turnAround();
+			moveTwoBlocksSouth();
+		}
+	}
+	private void southSideKarel() {
+		turnAround();
+		cleanBallout();
+		if (rightIsClear()) {
+			turnRight();
+			startNewBase();
+		}		
+	}
+	
+	private void cleanBallout() {		
+			while (beepersPresent()) {
+				pickBeeper();		
+			}
+			if (frontIsClear()) {
+				move();
+			}	
+	}
+	
+	/* Move two blocks down to the South
+	 * 
+	 */
+	private void moveTwoBlocksSouth() {
+		move();
+		move();
+	}	
+	
+	private void karelGotBlocked() {
+		if (frontIsBlocked()) {
+			 turnAround(); 
+			 moveTwoBlocksSouth(); 
+		}		
+	}
+	/* Everytime Karel has to start the new Ballout, she has to call StartBase
+	 * 
+	 */
+	private void startNewBase() {
+		move();
+	}
+}
