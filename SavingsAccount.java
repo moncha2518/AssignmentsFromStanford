@@ -40,8 +40,8 @@ public class SavingsAccount {
 		}
 	}
 
-	public double currentBalanceFuture() {
-		currBalanceFuture = currBalance * Math.pow(1 + INTEREST_RATE, 3);
+	public double futureValue(int years) {
+		currBalanceFuture = currBalance * Math.pow(1 + INTEREST_RATE, years);
 		return currBalanceFuture;
 	}
 
@@ -51,7 +51,8 @@ public class SavingsAccount {
 		String interestrate_str = df.format(INTEREST_RATE);
 
 		return "Saving Account Balance: $" + currBalance + "\n" + "Saving Account Interest Rate: " + interestrate_str
-				+ "\n" + "Saving Account Balance in 3 years: " + dfBalanceFuture.format(currentBalanceFuture());
+
+				+ "\n" + "Saving Account Balance in 3 years: " + dfBalanceFuture.format(futureValue(3));
 
 	}
 }

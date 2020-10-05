@@ -9,8 +9,8 @@ public class AccountHolder {
 	private CheckingAccount checkingAccount;
 	private SavingsAccount savingsAccount;
 
-	public AccountHolder(double checkingAccountOpeningBalance, double savingsAccountOpeningBalance, String firstName,
-			String middleName, String lastName, String ssn) {
+	public AccountHolder(String firstName, String middleName, String lastName, String ssn,
+			double checkingAccountOpeningBalance, double savingsAccountOpeningBalance) {
 
 		this.firstName = firstName;
 		this.middleName = middleName;

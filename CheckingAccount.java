@@ -22,11 +22,11 @@ public class CheckingAccount {
 
 	public boolean withdraw(double amount) {
 
-		if (amount >= 0) {
+		if (amount < 0 || amount > currBalance) {
+			return false;
+		} else {
 			currBalance -= amount;
 			return true;
-		} else {
-			return false;
 		}
 	}
 
@@ -41,9 +41,8 @@ public class CheckingAccount {
 		}
 	}
 
-	public double currentBalanceFuture() {
-		currBalanceFuture = currBalance * Math.pow(1 + INTEREST_RATE, 3);
-
+	public double futureValue(int years) {
+		currBalanceFuture = currBalance * Math.pow(1 + INTEREST_RATE, years);
 		return currBalanceFuture;
 	}
 
@@ -54,7 +53,7 @@ public class CheckingAccount {
 
 		return "Checking Account Balance: $" + currBalance + "\n" + "Checking Account Interest Rate: "
 				+ interestrate_str + "\n" + "Checking Account Balance in 3 years: "
-				+ dfBalanceFuture.format(currentBalanceFuture());
+				+ dfBalanceFuture.format(futureValue(3));
 
 	}
 
